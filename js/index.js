@@ -17,12 +17,12 @@ kKey = false;
 
 //counters:
 let rawScore = 0;
-let score = rawScore * combo;
 let count300;
 let count100;
 let count50;
 let countMiss;
 let combo = 0; //will be put in middle of game screen??
+let score = rawScore * combo;
 
 //html grabby:
 let scoreEl = document.getElementById("score");
@@ -142,7 +142,8 @@ document.addEventListener("keydown", (e) => {
 
     case 32:
       playerColorBlueOrRed = !playerColorBlueOrRed;
-      score++;
+      score++; //DELETE
+      combo++; //DELETE
       break;
   }
 });
@@ -188,6 +189,13 @@ function timingWindowDraw() {
   }
 }
 
+function comboDraw() {
+  ctx.fillStyle = "white";
+  ctx.font = "50px 'Azeret Mono'";
+  ctx.textAlign = "center";
+  ctx.fillText(combo, game.width / 2, game.height / 2);
+}
+
 function animate() {
   ctx.clearRect(0, 0, game.width, game.height);
 
@@ -209,6 +217,10 @@ function animate() {
   // need to draw stuff here
 
   scoreEl.innerHTML = score; //update score
+
+  if (combo > 4) {
+    comboDraw();
+  }
 
   //start button color: NOT WORKING
   // let start = document.getElementById('start-btn')
