@@ -9,7 +9,7 @@ let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
 game.width = 400;
-
+let gameOn = false; //game is running
 
 //keys pressed:
 dKey = false;
@@ -18,12 +18,17 @@ jKey = false;
 kKey = false;
 
 //counters:
+let score = 0;
 let count300;
 let count100;
 let count50;
 let countMiss;
-let combo = 0; //will be put in middle of game screen
+let combo = 0; //will be put in middle of game screen??
 
+
+//html grabby:
+let scoreEl = document.getElementById('score');
+// scoreEl.innerHTML = score;
 
 
 class Circle {
@@ -143,6 +148,7 @@ document.addEventListener('keydown', e => {
 
         case 32:
             playerColorBlueOrRed = !playerColorBlueOrRed;
+            score++;
             break;
     }
 })
@@ -171,9 +177,7 @@ document.addEventListener('keyup', e => {
     }
 })
 
-function animate() {
-    ctx.clearRect(0,0,game.width,game.height)
-
+function timingWindowDraw(){
     // timing window:
     if (playerColorBlueOrRed) {
         ctx.fillStyle = "rgba(135,206,250, 0.1)";
@@ -188,18 +192,41 @@ function animate() {
         ctx.fillRect(0,550,game.width,40);
         ctx.fillRect(0,569,game.width,1);
     };
+}
+
+function animate() {
+    ctx.clearRect(0,0,game.width,game.height)
+
+    // timing window:
+    timingWindowDraw()
+    // if (playerColorBlueOrRed) {
+    //     ctx.fillStyle = "rgba(135,206,250, 0.1)";
+    //     ctx.fillRect(0,520,game.width,100);
+    //     ctx.fillRect(0,535,game.width,70);
+    //     ctx.fillRect(0,550,game.width,40);
+    //     ctx.fillRect(0,569,game.width,1);
+    // } else {
+    //     ctx.fillStyle = "rgba(220,20,60, 0.1)";
+    //     ctx.fillRect(0,520,game.width,100);
+    //     ctx.fillRect(0,535,game.width,70);
+    //     ctx.fillRect(0,550,game.width,40);
+    //     ctx.fillRect(0,569,game.width,1);
+    // };
     // need to draw stuff here
 
-
+    scoreEl.innerHTML = score; //update score
     requestAnimationFrame(animate);
 }
 
 function startGame(){
     animate();
     console.log('Starting...');
+    gameOn = true;
 
-    // maybe add an offset kinda delay here:
+    // maybe add an offset kinda delay here idk:
     generateCircle();
+
+    
 }
 
 window.onload = () => {
@@ -211,3 +238,4 @@ window.onload = () => {
 // function appearCircle() {
     
 // }
+
