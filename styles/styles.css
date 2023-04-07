@@ -22,6 +22,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 100px;
 }
 
 #right {
@@ -30,4 +31,11 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+#start-btn {
+    font-family: 'Azeret Mono', monospace;
+    padding: 1rem 3rem;
+    background-color: rgba(135, 206, 250, 0.5);
+    box-shadow: 20px -20px rgba(220, 20, 60, 0.5);
 }
