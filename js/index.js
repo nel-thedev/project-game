@@ -22,7 +22,7 @@ let count300;
 let count100;
 let count50;
 let countMiss;
-let combo = 0;
+let combo = 0; //will be put in middle of game screen
 
 
 

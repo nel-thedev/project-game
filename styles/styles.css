@@ -3,6 +3,7 @@ body {
     background-color: black;
     color: white;
     justify-content: space-around;
+    font-family: 'Azeret Mono', monospace;
 }
 
 .section {
@@ -14,4 +15,18 @@ body {
     background-color: rgba(255, 255, 255, .1);
     min-width: 400;
     max-width: 600;
+}
+
+#left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#rigth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
