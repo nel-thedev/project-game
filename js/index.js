@@ -29,11 +29,11 @@ let scoreEl = document.getElementById("score");
 // scoreEl.innerHTML = score; ALREADY PUT IN ANIMATE()
 
 class Circle {
-  constructor() {
-    this.x = randomPos();
+  constructor(x, color) {
+    this.x = x; //will call randomPos();
     this.y = 0;
-    this.dia = 22.5;
-    this.color = circleColorBlueOrRed;
+    this.dia = 50;
+    this.color = color; //will get from circleColorBlueOrRed;
   }
 
   updatePos() {
@@ -58,14 +58,19 @@ class Circle {
 
 function generateCircle() {
   setInterval(() => {
-    circlesArr.push(new Circle());
+    circlesArr.push(new Circle(randomPos(), circleColorBlueOrRed));
     console.log("new circle");
+    // if (Math.random() > 0.05){
+    //   circleColorBlueOrRed = !circleColorBlueOrRed;
+    // }
   }, 60000 / bpm);
 }
 
 function clearCircle() {
+
   circlesArr.shift();
   console.log("click!");
+
 }
 
 // function checkCollision(circle){
@@ -99,19 +104,19 @@ function randomPos() {
   const rnd = Math.random();
 
   switch (true) {
-    case 0 <= rnd < 0.25: {
+    case 0 <= rnd && rnd < 0.25: {
       return 50;
       break;
     }
-    case 0.25 <= rnd < 0.5: {
+    case 0.25 <= rnd && rnd < 0.5: {
       return 150;
       break;
     }
-    case 0.5 <= rnd < 0.75: {
+    case 0.5 <= rnd && rnd < 0.75: {
       return 250;
       break;
     }
-    case 0.75 <= rnd <= 1: {
+    case 0.75 <= rnd && rnd <= 1: {
       return 350;
       break;
     }
@@ -231,6 +236,17 @@ function animate() {
   //     start.style.backgroundColor = 'rgba(220, 20, 60, 0.5)';
   //     start.style.boxShadow = '20px, -20px, 0, rgba(135, 206, 250, 0.5)';
   // }
+  // generateCircle();
+
+  circlesArr.forEach(circle => {
+    circle.drawCircle()
+    circle.updatePos()
+    if (circle.y > game.height) {
+      clearCircle();
+    }
+  });
+
+
 
   requestAnimationFrame(animate);
 }
