@@ -21,19 +21,19 @@ let count300;
 let count100;
 let count50;
 let countMiss;
-let combo = 0; //will be put in middle of game screen??
+let combo = 0; //will be put in middle of game screen?? DONE
 let score = rawScore * combo;
 
 //html grabby:
 let scoreEl = document.getElementById("score");
-// scoreEl.innerHTML = score; ALREADY PUT IN ANIMATE()
+// scoreEl.innerHTML = score; DONE ALREADY PUT IN ANIMATE()
 
 class Circle {
   constructor(x, color) {
-    this.x = x; //will call randomPos();
+    this.x = x; //will call randomPos(); DONE
     this.y = 0;
     this.dia = 50;
-    this.color = color; //will get from circleColorBlueOrRed;
+    this.color = color; //will get from circleColorBlueOrRed; PENDING!!!!
   }
 
   updatePos() {
@@ -204,24 +204,12 @@ function comboDraw() {
 function animate() {
   ctx.clearRect(0, 0, game.width, game.height);
 
-  // timing window:
   timingWindowDraw();
-  // if (playerColorBlueOrRed) {
-  //     ctx.fillStyle = "rgba(135,206,250, 0.1)";
-  //     ctx.fillRect(0,520,game.width,100);
-  //     ctx.fillRect(0,535,game.width,70);
-  //     ctx.fillRect(0,550,game.width,40);
-  //     ctx.fillRect(0,569,game.width,1);
-  // } else {
-  //     ctx.fillStyle = "rgba(220,20,60, 0.1)";
-  //     ctx.fillRect(0,520,game.width,100);
-  //     ctx.fillRect(0,535,game.width,70);
-  //     ctx.fillRect(0,550,game.width,40);
-  //     ctx.fillRect(0,569,game.width,1);
-  // };
+
   // need to draw stuff here
 
-  scoreEl.innerHTML = score; //update score
+  //update score:
+  scoreEl.innerHTML = score;
 
   if (combo > 4) {
     comboDraw();
@@ -238,10 +226,11 @@ function animate() {
   // }
   // generateCircle();
 
+  //circle drawing from array:
   circlesArr.forEach(circle => {
     circle.drawCircle()
     circle.updatePos()
-    if (circle.y > game.height) {
+    if (circle.y > game.height) { //condition to be changed to checkCollision()
       clearCircle();
     }
   });
