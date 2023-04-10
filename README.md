@@ -1,4 +1,4 @@
-# JS Game Proyect
+# JS Game Project
 
 This is a JavaScript game created as the first project for the Ironhack web development bootcamp. It is a 4K-style rhythm game where the player has to press keys and change the color of the player to match the color of the circles.
 
