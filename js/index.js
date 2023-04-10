@@ -21,16 +21,15 @@ let count300;
 let count100;
 let count50;
 let countMiss;
-let combo = 0; //will be put in middle of game screen?? DONE
-let score = rawScore * combo;
+let combo = 0;
+let score = rawScore * combo; //NO! EACH SINGULAR SCORE SHOULD BE MULTIPLIED, NOT THE OVERALL
 
 //html grabby:
 let scoreEl = document.getElementById("score");
-// scoreEl.innerHTML = score; DONE ALREADY PUT IN ANIMATE()
 
 class Circle {
   constructor(x, color) {
-    this.x = x; //will call randomPos(); DONE
+    this.x = x;
     this.y = 0;
     this.dia = 50;
     this.color = color; //will get from circleColorBlueOrRed; PENDING!!!!
@@ -45,7 +44,7 @@ class Circle {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.dia / 2, 0, Math.PI * 2);
 
-    if (circleColorBlueOrRed) {
+    if (this.color) {
       ctx.fillStyle = "rgb(135,206,250)";
     } else {
       ctx.fillStyle = "rgb(220,20,60)";
@@ -58,36 +57,35 @@ class Circle {
 
 function generateCircle() {
   setInterval(() => {
+    if (Math.random() < 0.3) {
+      circleColorBlueOrRed = !circleColorBlueOrRed;
+    }
+
     circlesArr.push(new Circle(randomPos(), circleColorBlueOrRed));
     console.log("new circle");
-    // if (Math.random() > 0.05){
-    //   circleColorBlueOrRed = !circleColorBlueOrRed;
-    // }
   }, 60000 / bpm);
 }
 
 function clearCircle() {
-
   circlesArr.shift();
   console.log("click!");
-
 }
 
 // function checkCollision(circle){
-//     if (collides300 && same color){
-//         score += 300;
+//     if ('d' && playerColorBlueOrRed == circle.color){
+//         score += 300 * combo;
 //         count300++;
 //         combo++;
 //         clearCircle()
 
 //     } else if (collides100 && same color){
-//         score += 100;
+//         score += 100 * combo;
 //         count100++;
 //         combo++;
 //         clearCircle()
 
 //     } else if (collides50 && same color){
-//         score += 50;
+//         score += 50 * combo;
 //         count50++;
 //         combo++;
 //         clearCircle()
@@ -125,25 +123,25 @@ function randomPos() {
 
 document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
-    case 68:
-      dKey = true;
-      console.log("d pressed");
-      break;
+    // case 68:
+    //   // dKey = true;
+    //   console.log("d pressed");
+    //   break;
 
-    case 70:
-      fKey = true;
-      console.log("f pressed");
-      break;
+    // case 70:
+    //   // fKey = true;
+    //   console.log("f pressed");
+    //   break;
 
-    case 74:
-      jKey = true;
-      console.log("j pressed");
-      break;
+    // case 74:
+    //   // jKey = true;
+    //   console.log("j pressed");
+    //   break;
 
-    case 75:
-      kKey = true;
-      console.log("k pressed");
-      break;
+    // case 75:
+    //   // kKey = true;
+    //   console.log("k pressed");
+    //   break;
 
     case 32:
       playerColorBlueOrRed = !playerColorBlueOrRed;
@@ -157,21 +155,25 @@ document.addEventListener("keyup", (e) => {
   switch (e.keyCode) {
     case 68:
       dKey = false;
+      checkCollision("d");
       console.log("d unpressed");
       break;
 
     case 70:
       fKey = false;
+      checkCollision("f");
       console.log("f unpressed");
       break;
 
     case 74:
       jKey = false;
+      checkCollision("j");
       console.log("j unpressed");
       break;
 
     case 75:
       kKey = false;
+      checkCollision("k");
       console.log("k unpressed");
       break;
   }
@@ -227,15 +229,15 @@ function animate() {
   // generateCircle();
 
   //circle drawing from array:
-  circlesArr.forEach(circle => {
-    circle.drawCircle()
-    circle.updatePos()
-    if (circle.y > game.height) { //condition to be changed to checkCollision()
+  for (let i = 0; i < circlesArr.length; i++) {
+    circlesArr[i].drawCircle();
+    circlesArr[i].updatePos();
+    if (circlesArr.length > 20) {
+      //condition to be changed to checkCollision()
       clearCircle();
     }
-  });
-
-
+    checkCollision(circlesArr[i]);
+  }
 
   requestAnimationFrame(animate);
 }
