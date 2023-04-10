@@ -16,13 +16,12 @@ jKey = false;
 kKey = false;
 
 //counters:
-let rawScore = 0;
 let count300;
 let count100;
 let count50;
 let countMiss;
 let combo = 0;
-let score = rawScore * combo; //NO! EACH SINGULAR SCORE SHOULD BE MULTIPLIED, NOT THE OVERALL
+let score = 0;
 
 //html grabby:
 let scoreEl = document.getElementById("score");
@@ -57,46 +56,225 @@ class Circle {
 
 function generateCircle() {
   setInterval(() => {
-    if (Math.random() < 0.3) {
+    if (Math.random() < 0.2) {
       circleColorBlueOrRed = !circleColorBlueOrRed;
     }
 
     circlesArr.push(new Circle(randomPos(), circleColorBlueOrRed));
-    console.log("new circle");
+    // console.log("new circle");
   }, 60000 / bpm);
 }
 
 function clearCircle() {
   circlesArr.shift();
-  console.log("click!");
+  // console.log("click!");
 }
 
-// function checkCollision(circle){
-//     if ('d' && playerColorBlueOrRed == circle.color){
-//         score += 300 * combo;
-//         count300++;
-//         combo++;
-//         clearCircle()
+function checkCollision(letter, array) {
+  //this will check for each letter passed from the keyup whether it hits 300, 100, 50 or misses. Going to be heavily nested but couldnt find any other way at the moment.
 
-//     } else if (collides100 && same color){
-//         score += 100 * combo;
-//         count100++;
-//         combo++;
-//         clearCircle()
+  if (letter === 'd') {
+    array.forEach((element, i, arr) => {
+      //50 hit
+      if (
+        element.x == 50 &&
+        ((element.y >= 520 && element.y < 535) ||
+          (element.y >= 605 && element.y < 620)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 50 * (combo + 1)
+        combo++
+        count50++
+        console.log("50 HIT")
+        arr.splice(i, 1)
+      }
 
-//     } else if (collides50 && same color){
-//         score += 50 * combo;
-//         count50++;
-//         combo++;
-//         clearCircle()
+      //100 hit
+      if (
+        element.x == 50 &&
+        ((element.y >= 535 && element.y < 550) ||
+          (element.y >= 590 && element.y < 605)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 100 * (combo + 1)
+        combo++
+        count100++
+        console.log("100 HIT")
+        arr.splice(i, 1)
+      }
 
-//     } else if (passes the timing window || is in timing wnd but diff color){
-//         countMiss++;
-//         combo = 0;
-//         clearCircle()
+      //300 hit
+      if (
+        element.x == 50 &&
+        element.y >= 550 && element.y < 590 &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 300 * (combo + 1)
+        combo++;
+        count300++;
+        console.log("300 HIT")
+        arr.splice(i, 1)
+      }
+    })
+  }
 
-//     }
-// }
+  if (letter === 'f') {
+    array.forEach((element, i, arr) => {
+      //50 hit
+      if (
+        element.x == 150 &&
+        ((element.y >= 520 && element.y < 535) ||
+          (element.y >= 605 && element.y < 620)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 50 * (combo + 1)
+        combo++
+        count50++
+        console.log("50 HIT")
+        arr.splice(i, 1)
+      }
+
+      //100 hit
+      if (
+        element.x == 150 &&
+        ((element.y >= 535 && element.y < 550) ||
+          (element.y >= 590 && element.y < 605)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 100 * (combo + 1)
+        combo++
+        count100++
+        console.log("100 HIT")
+        arr.splice(i, 1)
+      }
+
+      //300 hit
+      if (
+        element.x == 150 &&
+        element.y >= 550 && element.y < 590 &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 300 * (combo + 1)
+        combo++
+        count300++
+        console.log("300 HIT")
+        arr.splice(i, 1)
+      }
+
+    })
+  }
+
+  if (letter === 'j') {
+    array.forEach((element, i, arr) => {
+      //50 hit
+      if (
+        element.x == 250 &&
+        ((element.y >= 520 && element.y < 535) ||
+          (element.y >= 605 && element.y < 620)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 50 * (combo + 1)
+        combo++
+        count50++
+        console.log("50 HIT")
+        arr.splice(i, 1)
+      }
+
+      //100 hit
+      if (
+        element.x == 250 &&
+        ((element.y >= 535 && element.y < 550) ||
+          (element.y >= 590 && element.y < 605)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 100 * (combo + 1)
+        combo++
+        count100++
+        console.log("100 HIT")
+        arr.splice(i, 1)
+      }
+
+      //300 hit
+      if (
+        element.x == 250 &&
+        element.y >= 550 && element.y < 590 &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 300 * (combo + 1)
+        combo++
+        count300++
+        console.log("300 HIT")
+        arr.splice(i, 1)
+      }
+
+    })
+  }
+
+  if (letter === 'k') {
+    array.forEach((element, i, arr) => {
+      //50 hit
+      if (
+        element.x == 350 &&
+        ((element.y >= 520 && element.y < 535) ||
+          (element.y >= 605 && element.y < 620)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 50 * (combo + 1)
+        combo++
+        count50++
+        console.log("50 HIT")
+        arr.splice(i, 1)
+      }
+
+      //100 hit
+      if (
+        element.x == 350 &&
+        ((element.y >= 535 && element.y < 550) ||
+          (element.y >= 590 && element.y < 605)) &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 100 * (combo + 1)
+        combo++
+        count100++
+        console.log("100 HIT")
+        arr.splice(i, 1)
+      }
+
+      //300 hit
+      if (
+        element.x == 350 &&
+        element.y >= 550 && element.y < 590 &&
+        playerColorBlueOrRed == element.color
+      ) {
+        score += 300 * (combo + 1)
+        combo++
+        count300++
+        console.log("300 HIT")
+        arr.splice(i, 1)
+      }
+
+    })
+  }
+
+  // } else if (collides100 && same color){
+  //     score += 100 * combo;
+  //     count100++;
+  //     combo++;
+  //     clearCircle()
+
+  // } else if (collides50 && same color){
+  //     score += 50 * combo;
+  //     count50++;
+  //     combo++;
+  //     clearCircle()
+
+  // } else if (passes the timing window || is in timing wnd but diff color){
+  //     countMiss++;
+  //     combo = 0;
+  //     clearCircle()
+
+  // }
+}
 
 function randomPos() {
   const rnd = Math.random();
@@ -145,8 +323,8 @@ document.addEventListener("keydown", (e) => {
 
     case 32:
       playerColorBlueOrRed = !playerColorBlueOrRed;
-      score++; //DELETE
-      combo++; //DELETE
+      // score++; //DELETE
+      // combo++; //DELETE
       break;
   }
 });
@@ -154,26 +332,26 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keyup", (e) => {
   switch (e.keyCode) {
     case 68:
-      dKey = false;
-      checkCollision("d");
+      // dKey = false;
+      checkCollision("d", circlesArr);
       console.log("d unpressed");
       break;
 
     case 70:
-      fKey = false;
-      checkCollision("f");
+      // fKey = false;
+      checkCollision("f", circlesArr);
       console.log("f unpressed");
       break;
 
     case 74:
-      jKey = false;
-      checkCollision("j");
+      // jKey = false;
+      checkCollision("j", circlesArr);
       console.log("j unpressed");
       break;
 
     case 75:
-      kKey = false;
-      checkCollision("k");
+      // kKey = false;
+      checkCollision("k", circlesArr);
       console.log("k unpressed");
       break;
   }
@@ -232,9 +410,12 @@ function animate() {
   for (let i = 0; i < circlesArr.length; i++) {
     circlesArr[i].drawCircle();
     circlesArr[i].updatePos();
-    if (circlesArr.length > 20) {
+
+    if (circlesArr[i].y > game.height + 20) {
       //condition to be changed to checkCollision()
       clearCircle();
+      combo = 0;
+      countMiss++;
     }
     checkCollision(circlesArr[i]);
   }
