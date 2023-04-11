@@ -8,6 +8,7 @@ game.height = 650;
 game.width = 400;
 let gameOn = false; //game is running
 let paused = false;
+let gameOver = false;
 
 //audio:
 let song = new Audio("../sound/audio.mp3");
@@ -425,9 +426,26 @@ function animate() {
     checkCollision(circlesArr[i]);
   }
 
-  if (!paused) {
+  // setTimeout(gameOverFn, 3000);
+
+  if (!gameOver) {
     requestAnimationFrame(animate);
   }
+}
+
+function gameOverFn() {
+  gameOver = true;
+
+  ctx.clearRect(0, 0, game.width, game.height);
+
+  ctx.fillStyle = "white";
+  ctx.font = "20px 'Azeret Mono'";
+  ctx.textAlign = "center";
+
+  ctx.fillText("Time is up!", game.width / 2, game.height / 2);
+  ctx.fillText("See score on the right.", game.width / 2, game.height / 2 + 30);
+  song.pause();
+  // start.disabled = false;
 }
 
 function startGame() {
