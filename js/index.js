@@ -346,7 +346,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-document.addEventListener("keyup", (e) => {
+document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
     case 68:
       // dKey = false;
