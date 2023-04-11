@@ -2,7 +2,7 @@ const game = document.getElementById("game");
 const ctx = game.getContext("2d");
 let circlesArr = [];
 let bpm = 182;
-let speed = 1;
+// let speed = speedSlider.value;
 let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
@@ -15,6 +15,14 @@ let song = new Audio("../sound/audio.mp3");
 song.volume = 0.7;
 let keyPressSound = new Audio("../sound/normal-hitnormal.wav");
 keyPressSound.volume = 0.5;
+
+//speed slider:
+let speedSlider = document.getElementById("speed-slider");
+let speedOutput = document.getElementById("speed-slider-value");
+speedOutput.innerHTML = speedSlider.value;
+speedSlider.oninput = function () {
+  speedOutput.innerHTML = Number(this.value);
+};
 
 //keys pressed:
 // dKey = false;
@@ -46,7 +54,7 @@ class Circle {
   }
 
   updatePos() {
-    this.y += 8.8 * speed;
+    this.y += 8.8 * speedSlider.value;
     //maybe add some way of relating this to bpm, but the circles have to reach the line with the bpm intead of being generated with bpm
   }
 
