@@ -2,7 +2,6 @@ const game = document.getElementById("game");
 const ctx = game.getContext("2d");
 let circlesArr = [];
 let bpm = 182;
-// let speed = speedSlider.value;
 let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
@@ -24,12 +23,6 @@ speedSlider.oninput = function () {
   speedOutput.innerHTML = Number(this.value);
 };
 
-//keys pressed:
-// dKey = false;
-// fKey = false;
-// jKey = false;
-// kKey = false;
-
 //counters:
 let count300 = 0;
 let count100 = 0;
@@ -50,7 +43,7 @@ class Circle {
     this.x = x;
     this.y = 0;
     this.dia = 50;
-    this.color = color; //will get from circleColorBlueOrRed; PENDING!!!!
+    this.color = color;
   }
 
   updatePos() {
@@ -76,7 +69,6 @@ class Circle {
 function generateCircle() {
   let intervalCount = 0;
   setInterval(() => {
-    // if (Math.random() < 0.2) {
     if (intervalCount % 4 === 0) {
       if (Math.random() < 0.5) {
         circleColorBlueOrRed = !circleColorBlueOrRed;
@@ -357,22 +349,18 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
     case 68:
-      // dKey = false;
       checkCollision("d", circlesArr);
       break;
 
     case 70:
-      // fKey = false;
       checkCollision("f", circlesArr);
       break;
 
     case 74:
-      // jKey = false;
       checkCollision("j", circlesArr);
       break;
 
     case 75:
-      // kKey = false;
       checkCollision("k", circlesArr);
       break;
   }
