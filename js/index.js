@@ -1,7 +1,7 @@
 const game = document.getElementById("game");
 const ctx = game.getContext("2d");
 let circlesArr = [];
-let bpm = 182;
+let bpm = 222;
 let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
