@@ -14,6 +14,8 @@ let song = new Audio("../sound/audio.mp3");
 song.volume = 0.7;
 let keyPressSound = new Audio("../sound/normal-hitnormal.wav");
 keyPressSound.volume = 0.5;
+let comboBreak = new Audio("../sound/combobreak.wav");
+comboBreak.volume = 1;
 
 //speed slider:
 let speedSlider = document.getElementById("speed-slider");
@@ -414,6 +416,9 @@ function animate() {
     if (circlesArr[i].y > game.height + 20) {
       //condition to be changed to checkCollision()
       clearCircle();
+      if (combo > 10) {
+        comboBreak.play();
+      }
       combo = 0;
       countMiss++;
     }
