@@ -2,7 +2,6 @@ const game = document.getElementById("game");
 const ctx = game.getContext("2d");
 let circlesArr = [];
 let bpm = 182;
-let speed = 1;
 let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
@@ -15,12 +14,16 @@ let song = new Audio("../sound/audio.mp3");
 song.volume = 0.7;
 let keyPressSound = new Audio("../sound/normal-hitnormal.wav");
 keyPressSound.volume = 0.5;
+let comboBreak = new Audio("../sound/combobreak.wav");
+comboBreak.volume = 1;
 
-//keys pressed:
-// dKey = false;
-// fKey = false;
-// jKey = false;
-// kKey = false;
+//speed slider:
+let speedSlider = document.getElementById("speed-slider");
+let speedOutput = document.getElementById("speed-slider-value");
+speedOutput.innerHTML = speedSlider.value;
+speedSlider.oninput = function () {
+  speedOutput.innerHTML = Number(this.value);
+};
 
 //counters:
 let count300 = 0;
@@ -42,11 +45,11 @@ class Circle {
     this.x = x;
     this.y = 0;
     this.dia = 50;
-    this.color = color; //will get from circleColorBlueOrRed; PENDING!!!!
+    this.color = color;
   }
 
   updatePos() {
-    this.y += 8.8 * speed;
+    this.y += 8.8 * speedSlider.value;
     //maybe add some way of relating this to bpm, but the circles have to reach the line with the bpm intead of being generated with bpm
   }
 
@@ -68,7 +71,6 @@ class Circle {
 function generateCircle() {
   let intervalCount = 0;
   setInterval(() => {
-    // if (Math.random() < 0.2) {
     if (intervalCount % 4 === 0) {
       if (Math.random() < 0.5) {
         circleColorBlueOrRed = !circleColorBlueOrRed;
@@ -346,25 +348,21 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-document.addEventListener("keyup", (e) => {
+document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
     case 68:
-      // dKey = false;
       checkCollision("d", circlesArr);
       break;
 
     case 70:
-      // fKey = false;
       checkCollision("f", circlesArr);
       break;
 
     case 74:
-      // jKey = false;
       checkCollision("j", circlesArr);
       break;
 
     case 75:
-      // kKey = false;
       checkCollision("k", circlesArr);
       break;
   }
@@ -418,6 +416,9 @@ function animate() {
     if (circlesArr[i].y > game.height + 20) {
       //condition to be changed to checkCollision()
       clearCircle();
+      if (combo > 10) {
+        comboBreak.play();
+      }
       combo = 0;
       countMiss++;
     }
