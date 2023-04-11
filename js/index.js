@@ -1,13 +1,20 @@
 const game = document.getElementById("game");
 const ctx = game.getContext("2d");
 let circlesArr = [];
-let bpm = 180;
+let bpm = 182;
 let speed = 1;
 let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
 game.width = 400;
 let gameOn = false; //game is running
+let paused = false;
+
+//audio:
+let song = new Audio("../sound/audio.mp3");
+song.volume = 0.7;
+let keyPressSound = new Audio("../sound/normal-hitnormal.wav");
+keyPressSound.volume = 0.5;
 
 //keys pressed:
 // dKey = false;
@@ -59,11 +66,16 @@ class Circle {
 }
 
 function generateCircle() {
+  let intervalCount = 0;
   setInterval(() => {
-    if (Math.random() < 0.2) {
-      circleColorBlueOrRed = !circleColorBlueOrRed;
+    // if (Math.random() < 0.2) {
+    if (intervalCount % 4 === 0) {
+      if (Math.random() < 0.5) {
+        circleColorBlueOrRed = !circleColorBlueOrRed;
+        intervalCount = 0;
+      }
     }
-
+    intervalCount++;
     circlesArr.push(new Circle(randomPos(), circleColorBlueOrRed));
   }, 60000 / bpm);
 }
@@ -89,6 +101,7 @@ function checkCollision(letter, array) {
         count50++;
         console.log("50 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //100 hit
@@ -103,6 +116,7 @@ function checkCollision(letter, array) {
         count100++;
         console.log("100 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //300 hit
@@ -117,6 +131,7 @@ function checkCollision(letter, array) {
         count300++;
         console.log("300 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
     });
   }
@@ -135,6 +150,7 @@ function checkCollision(letter, array) {
         count50++;
         console.log("50 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //100 hit
@@ -149,6 +165,7 @@ function checkCollision(letter, array) {
         count100++;
         console.log("100 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //300 hit
@@ -163,6 +180,7 @@ function checkCollision(letter, array) {
         count300++;
         console.log("300 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
     });
   }
@@ -181,6 +199,7 @@ function checkCollision(letter, array) {
         count50++;
         console.log("50 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //100 hit
@@ -195,6 +214,7 @@ function checkCollision(letter, array) {
         count100++;
         console.log("100 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //300 hit
@@ -209,6 +229,7 @@ function checkCollision(letter, array) {
         count300++;
         console.log("300 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
     });
   }
@@ -227,6 +248,7 @@ function checkCollision(letter, array) {
         count50++;
         console.log("50 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //100 hit
@@ -241,6 +263,7 @@ function checkCollision(letter, array) {
         count100++;
         console.log("100 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
 
       //300 hit
@@ -255,6 +278,7 @@ function checkCollision(letter, array) {
         count300++;
         console.log("300 HIT");
         arr.splice(i, 1);
+        keyPressSound.play();
       }
     });
   }
@@ -307,6 +331,18 @@ document.addEventListener("keydown", (e) => {
     case 32:
       playerColorBlueOrRed = !playerColorBlueOrRed;
       break;
+
+    // case 27:
+    //   if (paused){
+    //     animate()
+    //     song.play()
+    //     paused = !paused
+    //   }
+
+    //   if (!paused) {
+    //     song.pause()
+    //     paused = !paused
+    //   }
   }
 });
 
@@ -388,7 +424,9 @@ function animate() {
     checkCollision(circlesArr[i]);
   }
 
-  requestAnimationFrame(animate);
+  if (!paused) {
+    requestAnimationFrame(animate);
+  }
 }
 
 function startGame() {
@@ -398,6 +436,8 @@ function startGame() {
 
   // maybe add an offset kinda delay here idk:
   generateCircle();
+
+  song.play();
 
   //disable button so it doesnt get pressed when game running:
   let start = document.getElementById("start-btn");
