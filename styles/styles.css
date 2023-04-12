@@ -17,24 +17,44 @@ h1 {
 #game {
     /* border: 1px solid white; */
     background-color: rgba(255, 255, 255, .1);
-    min-width: 400;
-    max-width: 600;
+    /* min-width: 400; */
+    /* max-width: 600; */
+    width: 500px;
+    display: block;
+
 }
+
+/* #center {
+    position: relative;
+}
+
+#center p {
+    display: inline;
+    visibility: hidden;
+    position: absolute;
+    left: 20px;
+    top: 200px;
+} */
 
 #left {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+    gap: 70px;
+}
+
+#left p {
+    padding: 1rem;
+    
 }
 
 #right {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
 }
 
 #start-btn {
@@ -47,6 +67,7 @@ h1 {
 .slider-cont{
     display: flex;
     align-items: center;
+    justify-content: space-around;
     gap: 20px;
 }
 

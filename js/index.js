@@ -1,13 +1,19 @@
 const game = document.getElementById("game");
 const ctx = game.getContext("2d");
 let circlesArr = [];
-let bpm = 182;
+let bpm = 222;
 let circleColorBlueOrRed = true; //true = blue, false = red
 let playerColorBlueOrRed = true;
 game.height = 650;
 game.width = 400;
 let gameOn = false; //game is running
 let paused = false;
+let gameOver = false;
+let playTime = 60; //in seconds
+let isHittingD = false;
+let isHittingF = false;
+let isHittingJ = false;
+let isHittingK = false;
 
 //audio:
 let song = new Audio("../sound/audio.mp3");
@@ -16,6 +22,8 @@ let keyPressSound = new Audio("../sound/normal-hitnormal.wav");
 keyPressSound.volume = 0.5;
 let comboBreak = new Audio("../sound/combobreak.wav");
 comboBreak.volume = 1;
+let spacePressSound = new Audio("../sound/normal-spacebar.wav");
+let applause = new Audio("../sound/applause.wav");
 
 //speed slider:
 let speedSlider = document.getElementById("speed-slider");
@@ -23,6 +31,14 @@ let speedOutput = document.getElementById("speed-slider-value");
 speedOutput.innerHTML = speedSlider.value;
 speedSlider.oninput = function () {
   speedOutput.innerHTML = Number(this.value);
+};
+
+//Color change slider:
+let changeSlider = document.getElementById("change-slider");
+let changeOutput = document.getElementById("change-slider-value");
+changeOutput.innerHTML = changeSlider.value;
+changeSlider.oninput = function () {
+  changeOutput.innerHTML = Number(this.value);
 };
 
 //counters:
@@ -34,6 +50,7 @@ let combo = 0;
 let score = 0;
 
 //html grabby:
+let timer = document.getElementById("timeRem");
 let scoreEl = document.getElementById("score");
 let hits300El = document.getElementById("hits300");
 let hits100El = document.getElementById("hits100");
@@ -72,7 +89,7 @@ function generateCircle() {
   let intervalCount = 0;
   setInterval(() => {
     if (intervalCount % 4 === 0) {
-      if (Math.random() < 0.5) {
+      if (Math.random() < changeSlider.value) {
         circleColorBlueOrRed = !circleColorBlueOrRed;
         intervalCount = 0;
       }
@@ -84,6 +101,14 @@ function generateCircle() {
 
 function clearCircle() {
   circlesArr.shift();
+}
+
+function drawHit(x, text, color) {
+  ctx.fillStyle = color;
+  ctx.font = "15px 'Azeret Mono'";
+  ctx.textAlign = "center";
+  ctx.fillText(text, x, 500);
+  // console.log("aaaa");
 }
 
 function checkCollision(letter, array) {
@@ -101,7 +126,6 @@ function checkCollision(letter, array) {
         score += 50 * (combo + 1);
         combo++;
         count50++;
-        console.log("50 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -116,7 +140,6 @@ function checkCollision(letter, array) {
         score += 100 * (combo + 1);
         combo++;
         count100++;
-        console.log("100 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -131,8 +154,13 @@ function checkCollision(letter, array) {
         score += 300 * (combo + 1);
         combo++;
         count300++;
-        console.log("300 HIT");
         arr.splice(i, 1);
+
+        isHittingD = true;
+        setTimeout(() => {
+          isHittingD = false;
+        }, 700);
+
         keyPressSound.play();
       }
     });
@@ -150,7 +178,6 @@ function checkCollision(letter, array) {
         score += 50 * (combo + 1);
         combo++;
         count50++;
-        console.log("50 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -165,7 +192,6 @@ function checkCollision(letter, array) {
         score += 100 * (combo + 1);
         combo++;
         count100++;
-        console.log("100 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -180,9 +206,13 @@ function checkCollision(letter, array) {
         score += 300 * (combo + 1);
         combo++;
         count300++;
-        console.log("300 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
+
+        isHittingF = true;
+        setTimeout(() => {
+          isHittingF = false;
+        }, 1000);
       }
     });
   }
@@ -199,7 +229,6 @@ function checkCollision(letter, array) {
         score += 50 * (combo + 1);
         combo++;
         count50++;
-        console.log("50 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -214,7 +243,6 @@ function checkCollision(letter, array) {
         score += 100 * (combo + 1);
         combo++;
         count100++;
-        console.log("100 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -229,9 +257,13 @@ function checkCollision(letter, array) {
         score += 300 * (combo + 1);
         combo++;
         count300++;
-        console.log("300 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
+
+        isHittingJ = true;
+        setTimeout(() => {
+          isHittingJ = false;
+        }, 1000);
       }
     });
   }
@@ -248,7 +280,6 @@ function checkCollision(letter, array) {
         score += 50 * (combo + 1);
         combo++;
         count50++;
-        console.log("50 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -263,7 +294,6 @@ function checkCollision(letter, array) {
         score += 100 * (combo + 1);
         combo++;
         count100++;
-        console.log("100 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -278,31 +308,16 @@ function checkCollision(letter, array) {
         score += 300 * (combo + 1);
         combo++;
         count300++;
-        console.log("300 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
+
+        isHittingK = true;
+        setTimeout(() => {
+          isHittingK = false;
+        }, 1000);
       }
     });
   }
-
-  // } else if (collides100 && same color){
-  //     score += 100 * combo;
-  //     count100++;
-  //     combo++;
-  //     clearCircle()
-
-  // } else if (collides50 && same color){
-  //     score += 50 * combo;
-  //     count50++;
-  //     combo++;
-  //     clearCircle()
-
-  // } else if (passes the timing window || is in timing wnd but diff color){
-  //     countMiss++;
-  //     combo = 0;
-  //     clearCircle()
-
-  // }
 }
 
 function randomPos() {
@@ -328,25 +343,24 @@ function randomPos() {
   }
 }
 
-document.addEventListener("keydown", (e) => {
-  switch (e.keyCode) {
-    case 32:
-      playerColorBlueOrRed = !playerColorBlueOrRed;
-      break;
+function timerFunction(time) {
+  // let timeElapsed = 0;
+  let seconds = time;
+  let interval = setInterval(() => {
+    seconds -= 1;
 
-    // case 27:
-    //   if (paused){
-    //     animate()
-    //     song.play()
-    //     paused = !paused
-    //   }
+    timer.innerHTML = `${seconds}`;
 
-    //   if (!paused) {
-    //     song.pause()
-    //     paused = !paused
-    //   }
-  }
-});
+    if (seconds <= 10) {
+      timer.style.color = "#f00";
+      timer.style.fontWeight = 800;
+    }
+
+    if (seconds === 0) {
+      clearInterval(interval);
+    }
+  }, 1000);
+}
 
 document.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
@@ -364,6 +378,11 @@ document.addEventListener("keydown", (e) => {
 
     case 75:
       checkCollision("k", circlesArr);
+      break;
+
+    case 32:
+      playerColorBlueOrRed = !playerColorBlueOrRed;
+      spacePressSound.play();
       break;
   }
 });
@@ -397,7 +416,23 @@ function animate() {
 
   timingWindowDraw();
 
+  switch (true) {
+    case isHittingD:
+      drawHit(50, "Perfect", "#0f0");
+      break;
+    case isHittingF:
+      drawHit(150, "Perfect", "#0f0");
+      break;
+    case isHittingJ:
+      drawHit(250, "Perfect", "#0f0");
+      break;
+    case isHittingK:
+      drawHit(350, "Perfect", "#0f0");
+      break;
+  }
+
   //update counters:
+  // timer.innerHTML = timerFunction(playTime);
   scoreEl.innerHTML = score;
   hits300El.innerHTML = count300;
   hits100El.innerHTML = count100;
@@ -414,7 +449,6 @@ function animate() {
     circlesArr[i].updatePos();
 
     if (circlesArr[i].y > game.height + 20) {
-      //condition to be changed to checkCollision()
       clearCircle();
       if (combo > 10) {
         comboBreak.play();
@@ -422,12 +456,28 @@ function animate() {
       combo = 0;
       countMiss++;
     }
-    checkCollision(circlesArr[i]);
   }
 
-  if (!paused) {
+  setTimeout(gameOverFn, playTime * 1000);
+
+  if (!gameOver) {
     requestAnimationFrame(animate);
   }
+}
+
+function gameOverFn() {
+  gameOver = true;
+
+  ctx.clearRect(0, 0, game.width, game.height);
+
+  ctx.fillStyle = "white";
+  ctx.font = "20px 'Azeret Mono'";
+  ctx.textAlign = "center";
+
+  ctx.fillText("Time is up!", game.width / 2, game.height / 2);
+  ctx.fillText("See score on the right.", game.width / 2, game.height / 2 + 30);
+  song.pause();
+  applause.play();
 }
 
 function startGame() {
@@ -439,6 +489,7 @@ function startGame() {
   generateCircle();
 
   song.play();
+  timerFunction(playTime);
 
   //disable button so it doesnt get pressed when game running:
   let start = document.getElementById("start-btn");
