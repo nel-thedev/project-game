@@ -87,6 +87,15 @@ function clearCircle() {
   circlesArr.shift();
 }
 
+function drawHit(x, text, color) {
+  setInterval(() => {
+    ctx.fillStyle = color;
+    ctx.font = "20px 'Azeret Mono'";
+    ctx.textAlign = "center";
+    ctx.fillText(text, x, 500);
+  }, 1);
+}
+
 function checkCollision(letter, array) {
   //this will check for each letter passed from the keyup whether it hits 300, 100, 50 or misses. Going to be heavily nested but couldnt find any other way at the moment.
 
@@ -102,9 +111,10 @@ function checkCollision(letter, array) {
         score += 50 * (combo + 1);
         combo++;
         count50++;
-        console.log("50 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
+        drawHit(50, "50", "#FFFF00");
+        console.log("aaaa");
       }
 
       //100 hit
@@ -117,7 +127,6 @@ function checkCollision(letter, array) {
         score += 100 * (combo + 1);
         combo++;
         count100++;
-        console.log("100 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -132,7 +141,6 @@ function checkCollision(letter, array) {
         score += 300 * (combo + 1);
         combo++;
         count300++;
-        console.log("300 HIT");
         arr.splice(i, 1);
         keyPressSound.play();
       }
@@ -409,13 +417,14 @@ function animate() {
     comboDraw();
   }
 
+  // drawHit(50, '50', '#FFFF00')
+
   //circle drawing from array:
   for (let i = 0; i < circlesArr.length; i++) {
     circlesArr[i].drawCircle();
     circlesArr[i].updatePos();
 
     if (circlesArr[i].y > game.height + 20) {
-      //condition to be changed to checkCollision()
       clearCircle();
       if (combo > 10) {
         comboBreak.play();
