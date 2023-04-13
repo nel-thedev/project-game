@@ -1,27 +1,30 @@
-# JS Game Project
+# 4K Rhythm Game
 
-This is a JavaScript game created as the first project for the Ironhack web development bootcamp. It is a 4K-style rhythm game where the player has to press keys and change the color of the player to match the color of the circles.
+This is a JavaScript game created as the first project for the Ironhack Web Development bootcamp. It is a 4K-style rhythm game where the player has to press keys and change the color of the player to match the color of the circles.
 
-## How to Play
+## Gameplay
 
-To start playing the game, open `index.html` in your web browser. The game will start automatically. The objective of the game is to press the correct key on your keyboard when the circles reach the bottom of the screen, and also change the color of the player to match the color of the circle. There are four different keys you can press: D, F, J, and K. The color of the player will change to either blue or red when the spacebar key is pressed. Each correct key press and color change will earn you a point. If you press the wrong key or the player color does not match the circle color, you will not earn any points for that circle. The circles are randomly generated with either a blue or red color, so the game will be different each time you play.
+1. Press the `start` button to begin the game.
+2. Press the corresponding key when a circle reaches the bottom of the screen to score points.
+3. The player's color can be changed using the `spacebar` key to match the circle's color.
+4. The game ends after 60 seconds.
 
-## Technologies Used
+## Technical Details
 
-This game was created using HTML, CSS, and JavaScript. The game logic and event handling were written in JavaScript. The styling and layout of the game were done using CSS, and the structure of the game was created using HTML.
+- The game is built using JavaScript and HTML Canvas.
+- The circles are randomly generated and move towards the bottom of the screen at a fixed speed that can be changed with the use of a slider on the left.
+- The player must press the corresponding key when a circle reaches the bottom to score points.
+- The player's color can be changed using the `spacebar` key.
+- The game ends after 60 seconds.
+- The game features background music ("Freedom Dive" by Xi).
 
 ## Future Improvements
 
 While the game is functional, there are some improvements that could be made in the future. Some possible ideas for improvement include:
 
-- Adding music to the game to enhance the rhythm aspect
 - Adding more levels or difficulty settings to keep the game interesting
 - Adding a high score feature to encourage players to keep playing and improve their scores
 
 ## Contributors
 
 This game was created by Nelson Morillo. If you would like to contribute to the project, please feel free to submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE.md file for details.
