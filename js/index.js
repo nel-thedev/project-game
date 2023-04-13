@@ -25,7 +25,7 @@ let comboBreak = new Audio("./sound/combobreak.wav");
 comboBreak.volume = 1;
 let spacePressSound = new Audio("./sound/normal-spacebar.wav");
 let applause = new Audio("./sound/applause.wav");
-applause.loop = false;
+applause.loop = false; //working?
 
 //speed slider:
 let speedSlider = document.getElementById("speed-slider");
