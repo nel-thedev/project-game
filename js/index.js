@@ -70,7 +70,6 @@ class Circle {
 
   updatePos() {
     this.y += 8.8 * speedSlider.value;
-    //maybe add some way of relating this to bpm, but the circles have to reach the line with the bpm intead of being generated with bpm
   }
 
   drawCircle() {
@@ -111,7 +110,6 @@ function drawHit(x, text, color) {
   ctx.font = "15px 'Azeret Mono'";
   ctx.textAlign = "center";
   ctx.fillText(text, x, 500);
-  // console.log("aaaa");
 }
 
 function checkCollision(letter, array) {
@@ -347,7 +345,6 @@ function randomPos() {
 }
 
 function timerFunction(time) {
-  // let timeElapsed = 0;
   let seconds = time;
   let interval = setInterval(() => {
     seconds -= 1;
@@ -435,7 +432,6 @@ function animate() {
   }
 
   //update counters:
-  // timer.innerHTML = timerFunction(playTime);
   scoreEl.innerHTML = score;
   hits300El.innerHTML = count300;
   hits100El.innerHTML = count100;
@@ -470,7 +466,6 @@ function animate() {
 
 function gameOverFn() {
   gameOver = true;
-  // start.disabled = false;
 
   ctx.clearRect(0, 0, game.width, game.height);
 
@@ -489,7 +484,7 @@ function startGame() {
   gameOn = true;
   gameOver = false;
   animate();
-  // maybe add an offset kinda delay here idk:
+
   generateCircle();
 
   song.play();
