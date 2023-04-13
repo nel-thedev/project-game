@@ -16,14 +16,16 @@ let isHittingJ = false;
 let isHittingK = false;
 
 //audio:
-let song = new Audio("../sound/audio.mp3");
+let song = new Audio("./sound/audio.mp3");
 song.volume = 0.7;
-let keyPressSound = new Audio("../sound/normal-hitnormal.wav");
+song.currentTime = 23;
+let keyPressSound = new Audio("./sound/normal-hitnormal.wav");
 keyPressSound.volume = 0.5;
-let comboBreak = new Audio("../sound/combobreak.wav");
+let comboBreak = new Audio("./sound/combobreak.wav");
 comboBreak.volume = 1;
-let spacePressSound = new Audio("../sound/normal-spacebar.wav");
-let applause = new Audio("../sound/applause.wav");
+let spacePressSound = new Audio("./sound/normal-spacebar.wav");
+let applause = new Audio("./sound/applause.wav");
+applause.loop = false; //working?
 
 //speed slider:
 let speedSlider = document.getElementById("speed-slider");
@@ -50,6 +52,7 @@ let combo = 0;
 let score = 0;
 
 //html grabby:
+let start = document.getElementById("start-btn");
 let timer = document.getElementById("timeRem");
 let scoreEl = document.getElementById("score");
 let hits300El = document.getElementById("hits300");
@@ -467,6 +470,7 @@ function animate() {
 
 function gameOverFn() {
   gameOver = true;
+  // start.disabled = false;
 
   ctx.clearRect(0, 0, game.width, game.height);
 
@@ -481,10 +485,10 @@ function gameOverFn() {
 }
 
 function startGame() {
-  animate();
   console.log("Starting...");
   gameOn = true;
-
+  gameOver = false;
+  animate();
   // maybe add an offset kinda delay here idk:
   generateCircle();
 
@@ -492,7 +496,6 @@ function startGame() {
   timerFunction(playTime);
 
   //disable button so it doesnt get pressed when game running:
-  let start = document.getElementById("start-btn");
   start.disabled = true;
 }
 
